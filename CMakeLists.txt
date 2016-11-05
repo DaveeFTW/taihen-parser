@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.1.0)
 project(taihen-parser)
 
 option(TEST "build and perform tests" OFF)
+option(USE_INBUILT_CTYPE "use internal ctype over system" OFF)
+option(USE_INBUILT_STRING "use internal string over system" OFF)
 
 include_directories(include)
 
