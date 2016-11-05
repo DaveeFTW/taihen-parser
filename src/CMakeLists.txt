@@ -15,6 +15,8 @@ if ((NOT ${HAVE_STRING}) OR ${USE_INBUILT_STRING})
     add_definitions(-DNO_STRING)
 endif()
 
+add_definitions(-Os -ffunction-sections -fdata-sections)
+
 add_library(taihenparser lexer.c parser.c)
 
 install(TARGETS taihenparser
