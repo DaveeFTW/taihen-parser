@@ -9,13 +9,71 @@
 
 #include <taihen/lexer.h>
 
+#ifndef NO_STRING
 #include <string.h>
+#endif // NO_STRING
+#ifndef NO_CTYPE
 #include <ctype.h>
+#endif // NO_CTYPE
 
 static const char TOKEN_EMPTY = '\0';
 static const char TOKEN_COMMENT_START = '#';
 static const char TOKEN_SECTION_START = '*';
 static const char TOKEN_HALT = '!';
+
+#ifdef NO_CTYPE
+static int isspace(int c)
+{
+    // we use "C"  locale
+    return      (c == ' ')
+            ||  (c == '\t')
+            ||  (c == '\n')
+            ||  (c == '\v')
+            ||  (c == '\f')
+            ||  (c == '\r');
+}
+#endif // NO_CTYPE
+
+#ifdef NO_STRING
+#include <stddef.h>
+
+static size_t strlen(const char *s)
+{
+    size_t idx = 0;
+
+    while (s[idx])
+    {
+        ++idx;
+    }
+
+    return idx;
+}
+
+static void *memset(void *s, int c, size_t len)
+{
+    unsigned char *p = (unsigned char *)s;
+
+    while (len--)
+    {
+        *p++ = (unsigned char)c;
+    }
+
+    return s;
+}
+
+static void *memcpy(void *s1, const void * s2, size_t len)
+{
+    char *dest = (char *)s1;
+    const char *src = (const char *)s2;
+
+    while (len--)
+    {
+        *dest++ = *src++;
+    }
+
+    return s1;
+}
+#endif // NO_STRING
 
 static char *skip_whitespace(char *input)
 {

@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-project(taihen-config)
+project(taihen-parser)
+
+option(TEST "build and perform tests" OFF)
+
 include_directories(include)
 
 add_subdirectory(src)

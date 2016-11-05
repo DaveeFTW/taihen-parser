@@ -10,10 +10,39 @@
 #include <taihen/parser.h>
 #include <taihen/lexer.h>
 
+#ifndef NO_STRING
 #include <string.h>
+#endif // NO_STRING
 
 static const char *TOKEN_ALL_SECTION = "ALL";
 static const char *TOKEN_KERNEL_SECTION = "KERNEL";
+
+#ifdef NO_STRING
+#include <stddef.h>
+
+static size_t strlen(const char *s)
+{
+    size_t idx = 0;
+
+    while (s[idx])
+    {
+        ++idx;
+    }
+
+    return idx;
+}
+
+static int strcmp(const char * s1, const char * s2)
+{
+    while ((*s1) && (*s1 == *s2))
+    {
+        ++s1;
+        ++s2;
+    }
+    return (*s1 - *s2);
+}
+
+#endif // NO_STRING
 
 static inline int is_continuation_byte(char b)
 {
