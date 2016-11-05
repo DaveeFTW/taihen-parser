@@ -5,7 +5,7 @@ include_directories(include)
 
 add_subdirectory(src)
 
-if (not ${TEST})
+if (${TEST})
     add_subdirectory(test)
 
     enable_testing()
