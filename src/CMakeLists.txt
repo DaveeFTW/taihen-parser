@@ -19,7 +19,9 @@ add_definitions(-Os -ffunction-sections -fdata-sections)
 
 add_library(taihenparser lexer.c parser.c)
 
+if (${INSTALL_ENABLED})
 install(TARGETS taihenparser
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib)
+endif()
