@@ -43,8 +43,9 @@ A section of the same name may appear in the file multiple times. This functiona
 A section can optionally have the halt point token ```!``` following the section token ```*``` in the configuration file. This token instructs the parser to stop further parsing of the file if the section name is within context. See the examples below for a visual worked case on this feature.
 
 ### Reserved names
-There are currently two reserved names for sections:
+There are currently three reserved names for sections:
  - ```ALL``` - A catch all user-mode section that will load the modules it contains for every user-mode process.
+ - ```GAME``` - A user-mode section that will load the modules it contains for every user-mode process with a titleID prefix used for a game such as PCSE, PCSB, and so on.
  - ```KERNEL``` - A section that loads resident kernel modules on the start of taiHEN.
 
 Using the halt point ```!``` on these sections results in undefined behaviour.
