@@ -16,6 +16,7 @@
 
 static const char *TOKEN_ALL_SECTION = "ALL";
 static const char *TOKEN_KERNEL_SECTION = "KERNEL";
+static const char *TOKEN_GAME_SECTION = "GAME";
 
 #ifdef NO_STRING
 #include <stddef.h>
@@ -39,6 +40,18 @@ static int strcmp(const char * s1, const char * s2)
         ++s1;
         ++s2;
     }
+    return (*s1 - *s2);
+}
+
+static int strncmp(const char * s1, const char * s2, size_t count)
+{
+    while ((*s1) && (*s1 == *s2) && count != 0)
+    {
+        ++s1;
+        ++s2;
+        --count;
+    }
+    if (count == 0) return 0;
     return (*s1 - *s2);
 }
 
@@ -240,6 +253,11 @@ void taihen_config_parse(const char *input, const char *section, taihen_config_h
 
         case CONFIG_SECTION_NAME_TOKEN:
             if (strcmp(ctx.line_pos, TOKEN_ALL_SECTION) == 0 && strcmp(section, TOKEN_KERNEL_SECTION) != 0)
+            {
+                record_entries = 1;
+            }
+            else if (strcmp(ctx.line_pos, TOKEN_GAME_SECTION) == 0 && strcmp(section, TOKEN_KERNEL_SECTION) != 0 &&
+                     strlen(section) == 9 && strncmp(section, "PCS", 3) == 0 && section[3] >= 'A' && section[3] <= 'H')
             {
                 record_entries = 1;
             }
